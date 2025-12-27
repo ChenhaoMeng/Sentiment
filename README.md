@@ -15,11 +15,13 @@
 
 ```
 /workspace/
-├── WangXiaoming_CS_BlackMythAnalysis.py    # 主要分析代码
+├── BlackMythAnalysis.py                    # 主要分析代码
 ├── WangXiaoming_CS_BlackMythAnalysis.docx  # 项目报告
 ├── create_files.py                         # 数据文件创建脚本
 ├── create_doc.py                           # Word文档创建脚本
-├── main.py                                 # 主程序入口
+├── config.py                               # 配置文件
+├── enhanced_sentiment_analyzer.py          # 增强版情感分析器
+├── IMPROVEMENTS_RECOMMENDATIONS.md         # 改进建议文档
 ├── requirements.txt                        # 依赖包列表
 ├── result_data.xlsx                        # 分析结果数据
 ├── data/                                   # 数据目录
