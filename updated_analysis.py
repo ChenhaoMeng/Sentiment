@@ -437,15 +437,20 @@ def main():
     
     # 按语言分组进行主题建模
     for lang in df['language'].unique():
-        lang_texts = df[df['language'] == lang]['tokens'].tolist()
+        # Get the indices for the current language
+        lang_mask = df['language'] == lang
+        lang_texts = df[lang_mask]['tokens'].tolist()
         
         if len(lang_texts) > 0:
             logger.info(f"对 {lang} 评论进行主题建模...")
             topic_distributions = topic_modeler.fit_transform(lang_texts)
             
-            # 将主题分布添加到DataFrame
+            # 将主题分布添加到对应语言的DataFrame行
             for i in range(topic_modeler.n_topics):
-                df[f'{lang}_topic_{i+1}_prob'] = topic_distributions[:, i]
+                # Create a column with NaN values first
+                df[f'{lang}_topic_{i+1}_prob'] = np.nan
+                # Then assign the topic probabilities only to the relevant rows
+                df.loc[lang_mask, f'{lang}_topic_{i+1}_prob'] = topic_distributions[:, i]
             
             # 输出主题词
             topics = topic_modeler.get_top_words_per_topic(top_n=10)
