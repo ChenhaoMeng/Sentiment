@@ -1,6 +1,33 @@
 """
 Configuration file for Black Myth: Wukong Steam reviews analysis project
 """
+import os
+from typing import Dict, Any
+
+def validate_config(config: Dict[str, Any]) -> None:
+    """
+    Validate configuration parameters
+    
+    Args:
+        config: Configuration dictionary to validate
+        
+    Raises:
+        ValueError: If any configuration parameter is invalid
+    """
+    required_fields = ['app_id', 'review_count', 'request_delay']
+    for field in required_fields:
+        if field not in config:
+            raise ValueError(f"Missing required config field: {field}")
+    
+    # Validate specific field types and ranges
+    if not isinstance(config['review_count'], int) or config['review_count'] <= 0:
+        raise ValueError("review_count must be a positive integer")
+    
+    if not isinstance(config['request_delay'], (int, float)) or config['request_delay'] < 0:
+        raise ValueError("request_delay must be a non-negative number")
+    
+    if not isinstance(config['max_retries'], int) or config['max_retries'] <= 0:
+        raise ValueError("max_retries must be a positive integer")
 
 CONFIG = {
     'app_id': '2358720',  # Black Myth: Wukong

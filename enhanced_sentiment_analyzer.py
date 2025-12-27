@@ -7,6 +7,7 @@ from snownlp import SnowNLP
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from config import GAME_SENTIMENT_WORDS
 import re
+from typing import Dict, List, Union
 
 class EnhancedSentimentAnalyzer:
     """
@@ -21,7 +22,7 @@ class EnhancedSentimentAnalyzer:
         except ImportError:
             self.textblob_available = False
 
-    def analyze_sentiment_ensemble(self, text, language='chinese'):
+    def analyze_sentiment_ensemble(self, text: str, language: str = 'chinese') -> float:
         """
         Analyze sentiment using ensemble of models
         """
@@ -49,7 +50,7 @@ class EnhancedSentimentAnalyzer:
         # Calculate weighted average
         return sum(scores) / len(scores) if scores else 0.0
 
-    def analyze_sentiment_with_domain_knowledge(self, text, language='chinese'):
+    def analyze_sentiment_with_domain_knowledge(self, text: str, language: str = 'chinese') -> float:
         """
         Analyze sentiment with game-specific domain knowledge
         """
@@ -68,7 +69,7 @@ class EnhancedSentimentAnalyzer:
         
         return final_score
 
-    def analyze_sentiment(self, text, language='chinese'):
+    def analyze_sentiment(self, text: str, language: str = 'chinese') -> float:
         """
         Main sentiment analysis method that uses domain knowledge
         """
